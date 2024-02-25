@@ -6,3 +6,4 @@ plotly
 PyPDF2
 streamlit
 python-docx
+libgl1-mesa-glx
