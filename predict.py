@@ -1,7 +1,6 @@
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 from nltk.tokenize import word_tokenize
 from numpy.linalg import norm
-from termcolor import colored
 import pandas as pd
 import numpy as np
 import requests
