@@ -14,7 +14,8 @@ from docx import Document
 st.set_page_config(layout="wide")
 def main():
     st.title('Resume Scanner')
-    uploaded_file = st.file_uploader("Choose a file", type=["pdf", "docx", "txt"])
+    resume = ""
+    uploaded_file = st.file_uploader("Choose a file", type=["pdf", "docx"])
     if uploaded_file is not None:
         # Divide the page into two sections/columns
         col1, col2 = st.columns(2,gap="large")
@@ -30,18 +31,26 @@ def main():
             if file_extension == 'pdf':
                 pdf_bytes = uploaded_file.read()           
                 pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
-                st.markdown(f'<iframe src="data:application/pdf;base64,{pdf_base64}" width="700" height="500" style="border: none;"></iframe>', unsafe_allow_html=True)
-
-            # elif file_extension == 'docx':               
-            #    content = read_word_docx(uploaded_file)
-            #    st.markdown(f'<iframe src=https://docs.google.com/gview?url=http://writing.engr.psu.edu/workbooks/formal_report_template.doc&embedded=true, {content}" width="700" height="500" style="border: none;"></iframe>', unsafe_allow_html=True)
                 
-            # elif file_extension == 'txt':
-            #     content = read_text(uploaded_file)
-            # else:
-            #     st.warning("Unsupported file type. Please upload a PDF, Word document (docx), or text file.")
+                st.markdown(f'<iframe src="data:application/pdf;base64,{pdf_base64}" width="700" height="500" style="border: none;"></iframe>', unsafe_allow_html=True)
+                pdf = PyPDF2.PdfReader(uploaded_file)
+                
+                for i in range(len(pdf.pages)):
+                    pageObj = pdf.pages[i]
+                    resume += pageObj.extract_text()
 
-            # st.text(content)
+            elif file_extension == 'docx':               
+               content = read_word_docx(uploaded_file)
+               st.text_area("Document Content:", value=content, height=475)
+               resume = content
+
+            # elif file_extension == 'txt':
+            #     content = read_text_file(uploaded_file)
+            #     st.markdown(f'<div style="word-wrap: break-word;overflow-y: scroll; max-height: 500px;">{content}</div>', unsafe_allow_html=True)
+            #     resume = content
+            else:
+                st.warning("Unsupported file type. Please upload a PDF, Word document (docx), or text file.")
+
         with col2:
             st.header("Job description")
             user_input = st.text_area("Enter job description here:", height=475)
@@ -51,9 +60,11 @@ def main():
         btn = st.button("Predict score",type="primary",use_container_width=True)   
         if btn:
             if user_input is not None:
-                preprocess_Resume(uploaded_file,user_input)
+                preprocess_Resume(resume,user_input)
 
-            
+def read_text_file(file):
+    content = file.read()
+    return content            
 
 # def read_pdf(file_path):
 #     with open(file_path, 'rb') as file:
@@ -70,10 +81,6 @@ def read_word_docx(file_path):
         full_text.append(para.text)
     return "\n".join(full_text)
 
-def read_text(file_path):
-    with open(file_path, 'r', encoding='utf-8') as file:
-        return file.read()
-   
 
 def preprocess_text(text):
     # Convert the text to lowercase
@@ -90,39 +97,16 @@ def preprocess_text(text):
     
     return text
 
-def preprocess_Resume(resumefile,jd):
+def preprocess_Resume(resume,jd):
 
-    pdf = PyPDF2.PdfReader(resumefile)
-    #pdf = PyPDF2.PdfReader('./CV/Jalpa-Dave.pdf')
-    resume = ""
-    for i in range(len(pdf.pages)):
-        pageObj = pdf.pages[i]
-        resume += pageObj.extract_text()
+    # pdf = PyPDF2.PdfReader(resumefile)
+    # #pdf = PyPDF2.PdfReader('./CV/Jalpa-Dave.pdf')
+    # resume = ""
+    # for i in range(len(pdf.pages)):
+    #     pageObj = pdf.pages[i]
+    #     resume += pageObj.extract_text()
 
-
-
-    # JD by input text:
-    # jd = input("Paste your JD here: ")
-
-    # jd = """
-    # • Develop statistical models for various predictive methods such as forecasting, classification,
-    # clustering and regression.
-    # • Analyze large datasets to provide strategic direction to clients for their business.
-    # • Handling client issues related to ElegantJ BI tool (Plug &amp; play Predictive).
-    # • Generating actionable insights from client data and creating presentations and dashboards to
-    # make recommendations for improvement.
-    # • Scripting using R language as well as Apache Spark + Java for predictive algorithms such as
-    # forecasting, classification, clustering, association mining, regression, decision tree, correlation.
-    # • Automating &amp; integrating Predictive algorithms - R scripts in Plug &amp; play Predictive
-    # Analytics,
-    # module of ElegantJ BI.
-    # • Automating &amp; integrating Predictive algorithms - Spark scripts in Smarten, module of
-    # ElegantJ
-    # BI.
-    # •  Preparing  and  conducting  demonstration  of  predictive  analytics  module  of  BI  along  with
-    # marketing team.
-
-    # """
+    # print(resume)
 
     # Apply to CV and JD
     input_CV = preprocess_text(resume)
