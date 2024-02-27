@@ -12,7 +12,25 @@ from docx import Document
 
 st.set_page_config(layout="wide")
 def main():
-    st.title('Resume Scanner')
+    st.title('Resume Scanner')   
+
+    page_bg_img = f"""
+    <style>
+    [data-testid="stAppViewContainer"] > .main {{
+    background-color: black;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: local;
+    }}
+    [data-testid="stHeader"] {{
+    background: rgba(0,0,0,0);
+    }}
+    </style>
+    """
+
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+
     resume = ""
     uploaded_file = st.file_uploader("Choose a file", type=["pdf", "docx"])
     if uploaded_file is not None:
@@ -31,7 +49,7 @@ def main():
                 pdf_bytes = uploaded_file.read()           
                 pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
                 
-                st.markdown(f'<iframe src="data:application/pdf;base64,{pdf_base64}" width="700" height="500" style="border: none;"></iframe>', unsafe_allow_html=True)
+                st.markdown(f'<iframe src="data:application/pdf;base64,{pdf_base64}" width="700" height="500" type="application/pdf" style="border: none;"></iframe>', unsafe_allow_html=True)
                 pdf = PyPDF2.PdfReader(uploaded_file)
                 
                 for i in range(len(pdf.pages)):
