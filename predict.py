@@ -19,7 +19,7 @@ def main():
     page_bg_img = f"""
     <style>
     [data-testid="stAppViewContainer"] > .main {{
-    background-color: black;
+    background-color: white;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
