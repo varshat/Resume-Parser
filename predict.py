@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 import streamlit as st
 import base64
 from docx import Document
-from streamlit_pdf_viewer import pdf_viewer
+# from streamlit_pdf_viewer import pdf_viewer
 
 
 st.set_page_config(layout="wide")
