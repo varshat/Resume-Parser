@@ -9,29 +9,29 @@ import plotly.graph_objects as go
 import streamlit as st
 import base64
 from docx import Document
-# from streamlit_pdf_viewer import pdf_viewer
+from streamlit_pdf_viewer import pdf_viewer
 
 
 st.set_page_config(layout="wide")
 def main():
     st.title('Resume Scanner')   
 
-    # page_bg_img = f"""
-    # <style>
-    # [data-testid="stAppViewContainer"] > .main {{
-    # background-color: white;
-    # background-size: cover;
-    # background-position: center center;
-    # background-repeat: no-repeat;
-    # background-attachment: local;
-    # }}
-    # [data-testid="stHeader"] {{
-    # background: rgba(0,0,0,0);
-    # }}
-    # </style>
-    # """
+    page_bg_img = f"""
+    <style>
+    [data-testid="stAppViewContainer"] > .main {{
+    background-color: black;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: local;
+    }}
+    [data-testid="stHeader"] {{
+    background: rgba(0,0,0,0);
+    }}
+    </style>
+    """
 
-    # st.markdown(page_bg_img, unsafe_allow_html=True)
+    st.markdown(page_bg_img, unsafe_allow_html=True)
 
     resume = ""
     uploaded_file = st.file_uploader("Choose a file", type=["pdf", "docx"])
@@ -50,14 +50,10 @@ def main():
             if file_extension == 'pdf':
                 pdf_bytes = uploaded_file.read()           
                 pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
-                # pdf_viewer(pdf_bytes)
-                # pdf_display = F'<iframe src="data:application/pdf;base64,{pdf_base64}" width="700" height="500" type="application/pdf"></iframe>'
+                pdf_viewer(pdf_bytes,width=700,height=500)
+                # pdf_display = F'<iframe src="data:application/pdf;base64,{pdf_base64}" width="700" )height="500" type="application/pdf"></iframe>'
                 # # st.markdown(f'<iframe src="data:application/pdf;base64,{pdf_base64}" width="700" height="500" type="application/pdf" style="border: none;"></iframe>', unsafe_allow_html=True)
                 # st.markdown(pdf_display, unsafe_allow_html=True)
-                
-                pdf_display = f'<embed src="data:application/pdf;base64,{pdf_base64}" width="700" height="500" type="application/pdf">' 
-                st.markdown(pdf_display, unsafe_allow_html=True)
-
                 pdf = PyPDF2.PdfReader(uploaded_file)
                 
                 for i in range(len(pdf.pages)):
