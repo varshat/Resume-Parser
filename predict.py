@@ -9,29 +9,29 @@ import plotly.graph_objects as go
 import streamlit as st
 import base64
 from docx import Document
-from streamlit_pdf_viewer import pdf_viewer
+# from streamlit_pdf_viewer import pdf_viewer
 
 
 st.set_page_config(layout="wide")
 def main():
     st.title('Resume Scanner')   
 
-    page_bg_img = f"""
-    <style>
-    [data-testid="stAppViewContainer"] > .main {{
-    background-color: white;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: local;
-    }}
-    [data-testid="stHeader"] {{
-    background: rgba(0,0,0,0);
-    }}
-    </style>
-    """
+    # page_bg_img = f"""
+    # <style>
+    # [data-testid="stAppViewContainer"] > .main {{
+    # background-color: white;
+    # background-size: cover;
+    # background-position: center center;
+    # background-repeat: no-repeat;
+    # background-attachment: local;
+    # }}
+    # [data-testid="stHeader"] {{
+    # background: rgba(0,0,0,0);
+    # }}
+    # </style>
+    # """
 
-    st.markdown(page_bg_img, unsafe_allow_html=True)
+    # st.markdown(page_bg_img, unsafe_allow_html=True)
 
     resume = ""
     uploaded_file = st.file_uploader("Choose a file", type=["pdf", "docx"])
