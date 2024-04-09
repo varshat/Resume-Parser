@@ -41,5 +41,9 @@ Review the extracted information from the resumes, including skills, experiences
 ## DEMO
 
 
+
+https://github.com/varshat/Resume-Parser/assets/7055503/c795b837-ce82-43c5-a819-f454c299a426
+
+
 ## Application link
 https://resumescanner.streamlit.app/
