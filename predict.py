@@ -51,7 +51,7 @@ def main():
                 pdf_bytes = uploaded_file.read()           
                 pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
                 # pdf_viewer(pdf_bytes)
-                pdf_display = F'<iframe src="data:application/pdf;base64,{pdf_base64}" width="700" height="500" type="application/pdf"></iframe>'
+                pdf_display = F'<embed src="data:application/pdf;base64,{pdf_base64}" width="700" height="500" type="application/pdf">'
                 # # st.markdown(f'<iframe src="data:application/pdf;base64,{pdf_base64}" width="700" height="500" type="application/pdf" style="border: none;"></iframe>', unsafe_allow_html=True)
                 st.markdown(pdf_display, unsafe_allow_html=True)
                 pdf = PyPDF2.PdfReader(uploaded_file)
