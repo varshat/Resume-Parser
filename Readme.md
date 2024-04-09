@@ -16,34 +16,30 @@ This is a resume parsing application designed to extract relevant information fr
 
 1. Clone the repository to your local machine:
 
-   ```bash
    git clone https://github.com/varshat/Resume-Parser.git
 
 
-Install dependencies using pip:
+### Install dependencies using pip:
 
-bash
-Copy code
 pip install -r requirements.txt
-Download pre-trained Word2Vec model (optional):
 
 The application can use a pre-trained Word2Vec model or train a new model on your dataset. If you prefer to use a pre-trained model, download it and place it in the models/ directory.
 
-Usage
-Run the application:
+### Usage
+Run the application: python streamlit run predic.py
 
-bash
-Copy code
-python streamlit run predic.py
+Upload resumes: Upload resume files in supported formats (e.g., PDF, DOCX) using the provided interface.
 
-Upload resumes:
-
-Upload resume files in supported formats (e.g., PDF, DOCX) using the provided interface.
-
-Parse resumes:
+### Parse resumes:
 
 The application will process the uploaded resumes, extract relevant information, and display the parsed data.
 
-Analyze results:
+### Analyze results:
 
 Review the extracted information from the resumes, including skills, experiences, education, and contact details. Use the Word2Vec similarity scores to identify relevant keywords and phrases.
+
+## DEMO
+
+
+## Application link
+https://resumescanner.streamlit.app/
