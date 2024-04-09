@@ -6,3 +6,4 @@ plotly==5.9.0
 PyPDF2==3.0.1
 streamlit
 python-docx
+scipy==1.10.1
